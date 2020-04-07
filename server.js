@@ -3,7 +3,6 @@ const fs = require("fs");
 
 
 const app = express();
-
 const PORT = 3000;
 
 let server =http.createServer(handleRequest);
@@ -37,3 +36,8 @@ function displayNotes(res){
 app.get("/notes", function(req, res) {
     res.send()
 })
+
+//listener:
+app.listen(PORT, function(){
+    console.log("it's working on PORT: "+PORT);
+});
