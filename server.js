@@ -6,6 +6,12 @@ const app = express();
 
 const PORT = 3000;
 
+let server =http.createServer(handleRequest);
+
+//placing the requests
+
+function
+
 //fs read index html
 function displayIndex(res){
 fs.readFile(__dirname+"/index.html",function(err, data) {
