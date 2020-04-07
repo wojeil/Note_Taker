@@ -29,6 +29,16 @@ app.get("/api/notes", function (req, res) {
 })
 
 //(api route)  Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
+// let id = 2;
+app.post("/api/notes", function (req, res){
+    //new note
+    let newNote = req.body;
+    newNote.id = id++
+//     // // fs.writeFile("db/db.json",function(err,data){
+//     // //     if(err) throw err;
+//     // //     res.json(newNote);
+//     // })
+ });
 
 
 //will return to main page(html rout)
