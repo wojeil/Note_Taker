@@ -30,17 +30,26 @@ app.get("/api/notes", function (req, res) {
 //variable for id
 let id = 3;
 //(api route)  Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
-// let id = 2;
+
 app.post("/api/notes", function (req, res){
+    
+    var newNotes = req.body;
+
     fs.readFile("db/db.json", function (err, data){
         if (err) throw err;
-        var notes = req.body;
+        var notes= JSON.parse(data);
         //plus plus for id to go up 1
         req.body.id = id++;
-         //logout to see if id has been included
+         //logout to see if id has been included in array
+        notes.push(newNotes);
         console.log(notes);
-        
-    })
+
+        })
+    // fs.writeFile("db/db.json",JSON.stringify(notes), function(err,data){
+    //     if(err) throw err;
+
+    //     res.json(JSON.parse(data));
+    // })
     // //new note
     // let newNote = JSON.stringify(req.body);
     // newNote.id = id++
