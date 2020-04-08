@@ -40,8 +40,6 @@ app.post("/api/notes", function (req, res) {
         if (err) throw err;
         var notes = JSON.parse(data);
             req.body.id = notes.length+1;
-        
-       
         //logout to see if id has been included in array
         notes.push(newNotes);
         console.log(notes);
@@ -61,13 +59,16 @@ app.post("/api/notes", function (req, res) {
 
 app.delete("/api/notes/:id", function (req,res){
     fs.readFile("db/db.json", function(err,data){
+    if(err) throw err;
     var notes = JSON.parse(data);
     console.log(notes);
-    var chosenOne =req.params.id 
+    var chosenOne =req.params.id; 
     for (var i = 0; i < notes.length; i++){
         if(chosenOne === notes[i].id) {
-            
+            delete res.json(notes[i]);
         }
+        console.log(notes[i].id);
+        console.log(chosenOne);
     }
 
     })
