@@ -35,51 +35,58 @@ app.post("/api/notes", function (req, res) {
     fs.readFile("db/db.json", function (err, data) {
         if (err) throw err;
         var notes = JSON.parse(data);
-            req.body.id = notes.length+1;
+        req.body.id = notes.length + 1;
         //logout to see if id has been included in array
         notes.push(newNotes);
         console.log(notes);
 
-    
-    fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
-        if (err) throw err;
-        
-      return res.json(data);
-    })
 
-})
+        fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
+            if (err) throw err;
+
+            return res.json(data);
+        })
+
+    })
 
 });
 
 //API route for Delete through id
 
-// app.delete("/api/notes/:id", function (req,res){
-    
-//     fs.readFile("db/db.json", function(err,data){
-//     if(err) throw err;
-//     var notes = JSON.parse(data);
-//     // console.log(notes);
-//     var chosenOne =req.params.id; 
-//     for (var i = 0; i < notes.length; i++){
-//         if(chosenOne == notes[i].id) {
-//              delete notes[i];
-             
-//         }
-//         console.log(chosenOne);
-//         console.log(notes);
-//         // console.log(notes[i].id);
-      
-//     }
-//     fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
-//         if (err) throw err;
-        
-//       return res.json(data);
-//     })
-    
+app.delete("/api/notes/:id", function (req, res) {
+    //the chosen id:
+    var chosenOne = req.params.id;
+    fs.readFile("db/db.json", function (err, data) {
+        if (err) throw err;
+        //the Array of objects in DB
+        var notes = JSON.parse(data);
+        //f
+        var newArray = function () {
+            for (var i = 0; i < notes.length; i++) {
+                if (chosenOne == notes[i].id) {
+                    //  delete notes[i];
+                    var newTest = notes.splice(i, 1);
+                    return newTest;
 
-//     })
-    
-// })
+                }
+                // console.log(newTest);
+                // console.log(chosenOne);
+                // console.log(notes);
+                // console.log(notes[i].id);
+            }
+        }
+       console.log(newArray());
+        // console.log(notes);
+        fs.writeFile("db/db.json", JSON.stringify(notes), function (err) {
+            if (err) throw err;
+
+            return res.json(notes);
+        })
+
+
+    })
+
+})
 
 
 
