@@ -24,40 +24,55 @@ app.get("/notes", function (req, res) {
 app.get("/api/notes", function (req, res) {
     fs.readFile("db/db.json", function (err, data) {
         if (err) throw err;
-      res.json(JSON.parse(data));
+        res.json(JSON.parse(data));
     });
 })
-//variable for id
-let id = 3;
+
+
 //(api route)  Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
 
-app.post("/api/notes", function (req, res){
-    
+app.post("/api/notes", function (req, res) {
+    //the notes that are being inputed
     var newNotes = req.body;
 
-    fs.readFile("db/db.json", function (err, data){
+
+    fs.readFile("db/db.json", function (err, data) {
         if (err) throw err;
-        var notes= JSON.parse(data);
-        //plus plus for id to go up 1
-        req.body.id = id++;
-         //logout to see if id has been included in array
+        var notes = JSON.parse(data);
+            req.body.id = notes.length+1;
+        
+       
+        //logout to see if id has been included in array
         notes.push(newNotes);
         console.log(notes);
 
-        })
-    // fs.writeFile("db/db.json",JSON.stringify(notes), function(err,data){
-    //     if(err) throw err;
+    
+    fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
+        if (err) throw err;
+        
+      return res.json(data);
+    })
 
-    //     res.json(JSON.parse(data));
-    // })
-    // //new note
-    // let newNote = JSON.stringify(req.body);
-    // newNote.id = id++
-    // fs.writeFile("db/db.json",JSON.parse(newNote),function(err,data){
-    //     if(err) throw err;
-    //     res.json(data);
-    // })
- });
+})
+
+});
+
+//API route for Delete through id
+
+app.delete("/api/notes/:id", function (req,res){
+    fs.readFile("db/db.json", function(err,data){
+    var notes = JSON.parse(data);
+    console.log(notes);
+    var chosenOne =req.params.id 
+    for (var i = 0; i < notes.length; i++){
+        if(chosenOne === notes[i].id) {
+            
+        }
+    }
+
+    })
+})
+
 
 
 //will return to main page(html rout)
