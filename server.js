@@ -58,20 +58,31 @@ app.post("/api/notes", function (req, res) {
 //API route for Delete through id
 
 app.delete("/api/notes/:id", function (req,res){
+    
     fs.readFile("db/db.json", function(err,data){
     if(err) throw err;
     var notes = JSON.parse(data);
-    console.log(notes);
+    // console.log(notes);
     var chosenOne =req.params.id; 
     for (var i = 0; i < notes.length; i++){
-        if(chosenOne === notes[i].id) {
-            delete res.json(notes[i]);
+        if(chosenOne == notes[i].id) {
+             delete notes[i];
+             
         }
-        console.log(notes[i].id);
         console.log(chosenOne);
+        console.log(notes);
+        // console.log(notes[i].id);
+      
     }
+    fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
+        if (err) throw err;
+        
+      return res.json(data);
+    })
+    
 
     })
+    
 })
 
 
