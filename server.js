@@ -41,10 +41,10 @@ app.post("/api/notes", function (req, res) {
         console.log(notes);
 
 
-        fs.writeFile("db/db.json", JSON.stringify(notes), function (err, data) {
+        fs.writeFile("db/db.json", JSON.stringify(notes, null, "\t"), function (err) {
             if (err) throw err;
 
-            return res.json(data);
+            return res.json(notes);
         })
 
     })
@@ -77,7 +77,7 @@ app.delete("/api/notes/:id", function (req, res) {
         }
        console.log(newArray());
         // console.log(notes);
-        fs.writeFile("db/db.json", JSON.stringify(notes), function (err) {
+        fs.writeFile("db/db.json", JSON.stringify(notes, null, "\t"), function (err) {
             if (err) throw err;
 
             return res.json(notes);
